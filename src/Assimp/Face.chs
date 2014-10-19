@@ -1,7 +1,6 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
-module Face where
+module Assimp.Face where
 
 #include <assimp/mesh.h>
 
-data Face = Face
-          { }
+data Face = Face deriving (Show)

@@ -27,7 +27,7 @@ loadSceneFile fp pps = withCString (FP.encodeString fp) importFile
         importFile :: CString -> IO (Either String Scene)
         importFile cs = do sp <- {# call aiImportFile #} cs flagsToBits
 		      	   if sp == nullPtr
-			     then return $ Left "fail"
+			     then Left <$> (peekCString =<< {# call aiGetErrorString #})
 			     else Right <$> do sc <- peek (castPtr sp)
 			                       {# call aiReleaseImport #} sp
 					       return sc
